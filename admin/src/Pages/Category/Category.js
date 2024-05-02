@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import img from "./../../assets/images/log.jpg";
+import axios from "axios";
 
 export default function Category() {
   const [image, setimage] = useState(false);
@@ -9,18 +10,15 @@ export default function Category() {
     category: "",
   });
 
-  const handlechange = (e) => {
-    const { name, value } = e.target;
-    setinputvalue({ ...inputvalue, [name]: value });
-  };
-  const handleclick = async (e) => {
+  const url = "http://localhost:3001";
+  const handlecsubmit = async (e) => {
     e.preventDefault();
-    const { category, cat_image } = inputvalue;
-    if (category === "") {
-      toast.error("please input category");
-    } else {
-      console.log("registration successfull");
-    }
+    // const formData = new FormData();
+    // formData.append("category", inputvalue.category);
+    // formData.append("image", image);
+    // const response = await axios.post(`${url}/api/postcat`);
+    // console.log(response);
+    // console.log("add category successfully");
   };
 
   return (
@@ -34,16 +32,14 @@ export default function Category() {
             placeholder="enter the category name"
             name="category"
             value={inputvalue.category}
-            onChange={handlechange}
+            onChange={(e) => setinputvalue(e.target.value)}
           />
           <div>
             <label htmlFor="customFile">
               <img
                 className="h-[100px] w-[100px] mt-3 rounded-md cursor-pointer "
                 src={
-                  image
-                    ? URL.createObjectURL(image)
-                    : "https://img.freepik.com/free-photo/cheerful-indian-businessman-smiling-closeup-portrait-jobs-career-campaign_53876-129417.jpg?size=626&ext=jpg&ga=GA1.2.457771161.1694093368&semt=sph"
+                  "https://img.freepik.com/free-photo/cheerful-indian-businessman-smiling-closeup-portrait-jobs-career-campaign_53876-129417.jpg?size=626&ext=jpg&ga=GA1.2.457771161.1694093368&semt=sph"
                 }
                 alt=""
               />
@@ -52,15 +48,13 @@ export default function Category() {
               type="file"
               id="customFile"
               className=" mt-1 "
-              name="cat_image"
+              accept=".jpg,.png"
               onChange={(e) => setimage(e.target.files[0])}
-              required
-              placeholder="image"
             />
           </div>
 
           <button
-            onClick={handleclick}
+            onClick={handlecsubmit}
             className="border bg-red-500 text-white mt-10 "
           >
             Add

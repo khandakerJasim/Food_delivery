@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Category from "../Category/Category";
+import { toast } from "react-toastify";
 
 export default function Addproduct() {
   const [image, setimage] = useState(false);
@@ -13,12 +14,18 @@ export default function Addproduct() {
 
   const handlechange = (e) => {
     const { value, name } = e.target;
-
-    setinput({ ...input, [name]: value });
+    setinput(() => {
+      return {
+        ...input,
+        [name]: value,
+      };
+    });
   };
+  const url = "http://localhost:3001";
 
   const handlesubmit = async (e) => {
-    // const { name, price, description, category, image } = input;
+    //const { name, price, description, category, image } = input;
+
     e.preventDefault();
     const formData = new FormData();
     formData.append("name", input.name);
@@ -27,25 +34,35 @@ export default function Addproduct() {
     formData.append("category", input.category);
     formData.append("image", image);
 
-    // const res = await axios.post("http://localhost:6000/api/post", formData);
-    // console.log(res);
+    const res = await axios.post(`${url}/api/post`, formData);
+    if (res.data.success) {
+      setinput({
+        name: "",
+        price: "",
+        category: "Salad",
+        description: "",
+      });
+      setimage(false);
+      toast.success(res.data.message);
+    } else {
+      toast.error(res.data.message);
+    }
 
-    const fetchdata = await fetch("http://localhost:6000/api/post", {
-      method: "POST",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      body: JSON.stringify({
-        name: "name",
-        price: "price",
-        description: "description",
-        category: "category",
-        image: "image",
-      }),
-    });
-    const res = await fetchdata.json();
-    console.log(res);
-    console.log("product post successfukky");
+    // const fetchdata = await fetch("http://localhost:6000/api/post", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    //   body: JSON.stringify({
+    //     name: "name",
+    //     price: "price",
+    //     description: "description",
+    //     category: "category",
+    //     image: "image",
+    //   }),
+    // });
+    // const res = await fetchdata.json();
+    // console.log(res);
   };
   return (
     <div className=" md:w-3/4 w-full border-t-2 border-red-500  h-full dark:text-white dark:bg-gray-600">
