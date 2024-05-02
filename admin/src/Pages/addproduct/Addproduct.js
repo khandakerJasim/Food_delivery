@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Category from "../Category/Category";
 
 export default function Addproduct() {
-  const [image, setimage] = useState("false");
+  const [image, setimage] = useState(false);
   const [input, setinput] = useState({
     name: "",
     description: "",
     price: "",
     category: "Salad",
-    image: image,
   });
 
   const handlechange = (e) => {
@@ -18,40 +18,39 @@ export default function Addproduct() {
   };
 
   const handlesubmit = async (e) => {
-    const { name, price, description, category, image } = input;
+    // const { name, price, description, category, image } = input;
     e.preventDefault();
     const formData = new FormData();
-    formData.append("name", name);
-    formData.append("price", price);
-    formData.append("description", description);
-    formData.append("category", category);
+    formData.append("name", input.name);
+    formData.append("price", input.price);
+    formData.append("description", input.description);
+    formData.append("category", input.category);
     formData.append("image", image);
 
-    const res = await axios.post("http://localhost:6000/api/post", formData);
-    console.log(res);
-
-    // const fetchdata = await fetch("http://localhost:6000/api/post", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    //   body: JSON.stringify({
-    //     name: "name",
-    //     price: "price",
-    //     description: "description",
-    //     category: "category",
-    //     image: "image",
-    //   }),
-    // });
-    // const res = await fetchdata.json();
+    // const res = await axios.post("http://localhost:6000/api/post", formData);
     // console.log(res);
+
+    const fetchdata = await fetch("http://localhost:6000/api/post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      body: JSON.stringify({
+        name: "name",
+        price: "price",
+        description: "description",
+        category: "category",
+        image: "image",
+      }),
+    });
+    const res = await fetchdata.json();
+    console.log(res);
     console.log("product post successfukky");
   };
   return (
     <div className=" md:w-3/4 w-full border-t-2 border-red-500  h-full dark:text-white dark:bg-gray-600">
-      <div className="p-4 mt-3 md:pb-[200px] ">
-        <p className="text-2xl font-bold">add product</p>
-
+      <p className="text-2xl text-center font-bold">add product</p>
+      <div className="p-4 mt-3 md:pb-[200px] flex justify-center md:justify-around md:flex-row flex-col ">
         <form className="mt-4" action="">
           <div className="flex flex-col  ">
             <label className="text-xl" htmlFor="">
@@ -61,7 +60,6 @@ export default function Addproduct() {
               <input
                 className=" absolute   opacity-0 border-red-500 left-0 top-0 h-full md:w-[300px] overflow-hidden cursor-pointer "
                 type="file"
-                name="image"
                 id="customFile"
                 accept=".jpg,.png"
                 onChange={(e) => setimage(e.target.files[0])}
@@ -146,6 +144,9 @@ export default function Addproduct() {
             Add product
           </button>
         </form>
+        <div className="">
+          <Category />
+        </div>
       </div>
     </div>
   );
