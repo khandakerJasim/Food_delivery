@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import image from "./../../Assets/image/carusol/burger.jpg";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Register() {
   const [images, setimage] = useState(false);
@@ -12,17 +13,37 @@ export default function Register() {
     phone: "",
     password: "",
     cpassword: "",
-    image: images,
   });
 
   const handlechange = (e) => {
     const { name, value } = e.target;
     setinputdata({ ...inputdata, [name]: value });
   };
+  const url = "http://localhost:3001";
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-    console.log("submit data successfully");
+    const formData = new FormData();
+
+    formData.append("name", inputdata.name);
+    formData.append("email", inputdata.email);
+    formData.append("phone", inputdata.phone);
+    formData.append("password", inputdata.password);
+    formData.append("cpassword", inputdata.cpassword);
+    formData.append("image", images);
+
+    const response = await axios.post(`${url}/api/register`, formData);
+    console.log(response);
+    if (response.data.success) {
+      setinputdata({
+        name: "",
+        email: "",
+        phone: "",
+        password: "",
+        cpassword: "",
+      });
+      setimage(false);
+    }
   };
 
   useEffect(() => {
@@ -118,7 +139,6 @@ export default function Register() {
                    flex text-center items-center hover:outline-none focus:outline-none
                     bg-transparent  "
                   type="file"
-                  name="image"
                   accept=".jpg,.png"
                   id="customFile"
                   onChange={(e) => setimage(e.target.files[0])}

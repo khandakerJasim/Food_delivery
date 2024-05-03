@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 const DATABASE = process.env.DATABASE;
 const Connect = require("./connection/Connect");
 const Foodrouter = require("./routes/Router");
+const Authrouter = require("./routes/UserRouter");
+const Urouter = require("./routes/urouter");
 
 const app = express();
 app.use(cors());
@@ -17,5 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/uploads", express.static("./uploads"));
 app.use(Foodrouter);
+app.use(Authrouter);
+app.use(Urouter);
 
 module.exports = app;
