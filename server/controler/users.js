@@ -1,5 +1,7 @@
 const Users = require("./../model/Usermodel");
 const { validationResult } = require("express-validator");
+const jwt = require("jsonwebtoken");
+
 const bcrypt = require("bcrypt");
 
 exports.Register = async (req, res) => {
@@ -45,9 +47,50 @@ exports.Register = async (req, res) => {
     });
   }
 };
+const Generatetoken = (user) => {
+  const generatetoken = jwt.sign(user, process.env.SECRET, {
+    expiresIn: "24h",
+  });
+
+  return generatetoken;
+};
 
 exports.Login = async (req, res) => {
+  const { email, password } = req.body;
   try {
+    const error = validationResult(req);
+    if (!error) {
+      res.status(401).json({
+        succss: true,
+        message: "error",
+        error: error.array(),
+      });
+    }
+
+    const finduser = await Users.findOne({ email });
+    if (!finduser) {
+      res.status(402).json({
+        success: false,
+        message: "user not found",
+      });
+    }
+    const matchpassword = await bcrypt.compare(password, finduser.password);
+
+    if (!matchpassword) {
+      res.status(403).json({
+        success: false,
+        message: "password and email is not match",
+      });
+    }
+
+    const token = await Generatetoken({ user: finduser });
+    res.status(200).json({
+      success: true,
+      message: "token generate successfully",
+      user: finduser,
+      token: token,
+      tokenType: "Bearer",
+    });
   } catch (err) {
     res.status(400).json({
       success: true,

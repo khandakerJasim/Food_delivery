@@ -43,3 +43,11 @@ exports.Ragistrationvalidation = [
     })
     .withMessage("please upload jpg ,jpeg and png files"),
 ];
+
+exports.Loginvalidator = [
+  check("email", "please required valid email")
+    .isEmail()
+    .normalizeEmail({ gmail_remove_dots: true }),
+
+  check("password", "please required password").not().isEmpty(),
+];
