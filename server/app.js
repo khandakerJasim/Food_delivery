@@ -8,6 +8,7 @@ const Connect = require("./connection/Connect");
 const Foodrouter = require("./routes/Router");
 const Authrouter = require("./routes/UserRouter");
 const Urouter = require("./routes/urouter");
+const Contactrouter = require("./routes/Contactrouter");
 
 const app = express();
 app.use(cors());
@@ -21,5 +22,6 @@ app.use("/uploads", express.static("./uploads"));
 app.use(Foodrouter);
 app.use(Authrouter);
 app.use(Urouter);
+app.use(Contactrouter);
 
 module.exports = app;
