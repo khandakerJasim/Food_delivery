@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Contact() {
+  const [data, setdata] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const handlechange = (e) => {
+    const { name, value } = e.target;
+    setdata({ ...setdata, [name]: value });
+  };
+
+  const handlesubmit = async (e) => {
+    e.preventDefault();
+
+    console.log("contact page submit successsfully");
+  };
   return (
     <div
       className="w-full dark:bg-gradient-to-r from-slate-900 to-slate-700
@@ -30,6 +47,9 @@ export default function Contact() {
                 </label>
                 <input
                   type="text"
+                  name="name"
+                  value={data.name}
+                  onChange={handlechange}
                   placeholder="enter your name"
                   className="md:w-[500px] w-full h-12 outline-none hover:outline-none ring-1 ring-gray-400 dark:bg-white dark:text-black p-1 rounded-md bg-gray-100 text-gray-700 mt-1   "
                 />
@@ -40,6 +60,9 @@ export default function Contact() {
                 </label>
                 <input
                   type="email"
+                  name="email"
+                  value={data.email}
+                  onChange={handlechange}
                   placeholder="enter your email"
                   className="md:w-[500px] w-full h-12 outline-none hover:outline-none ring-1 ring-gray-400 dark:bg-white dark:text-black p-1 rounded-md bg-gray-100 text-gray-700 mt-1   "
                 />
@@ -50,6 +73,9 @@ export default function Contact() {
                 </label>
                 <input
                   type="phone"
+                  name="phone"
+                  value={data.phone}
+                  onChange={handlechange}
                   placeholder="enter your phone number"
                   className="md:w-[500px] w-full h-12 outline-none hover:outline-none ring-1 ring-gray-400 dark:bg-white dark:text-black p-1 rounded-md bg-gray-100 text-gray-700 mt-1   "
                 />
@@ -59,12 +85,15 @@ export default function Contact() {
                   message
                 </label>
                 <textarea
+                  name="message"
+                  value={data.message}
+                  onChange={handlechange}
                   placeholder="message"
                   className="md:w-[500px] w-full h-[200px] outline-none hover:outline-none ring-1 ring-gray-400 dark:bg-white dark:text-black p-1 rounded-md bg-gray-100 text-gray-700 mt-1   "
                 ></textarea>
               </div>
               <div className="mt-5 justify-center sm:justify-start flex items-center mx-auto ">
-                <button className="bg-red-500 text-2xl font-bold p-2 rounded-md text-white w-[120px]">
+                <button onClick={handlesubmit} className="bg-red-500 text-2xl font-bold p-2 rounded-md text-white w-[120px]">
                   submit
                 </button>
               </div>
