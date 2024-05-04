@@ -3,11 +3,11 @@ const Contact = require("./../model/Contactmodel");
 exports.Sendcontact = async (req, res) => {
   const { name, email, phone, message } = req.body;
   try {
-    const newuser = await Contact({
-      name: name,
-      email: email,
-      phone: phone,
-      message: message,
+    const newuser = new Contact({
+      name,
+      email,
+      phone,
+      message,
     });
     const saveuser = await newuser.save();
 
@@ -19,7 +19,7 @@ exports.Sendcontact = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       success: false,
-      message: "error",
+      message: "contact valid fail",
       error: err,
     });
   }

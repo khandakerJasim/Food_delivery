@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Contact() {
-  const [data, setdata] = useState({
+  const [inputdata, setdata] = useState({
     name: "",
     email: "",
     phone: "",
@@ -11,13 +11,39 @@ export default function Contact() {
 
   const handlechange = (e) => {
     const { name, value } = e.target;
-    setdata({ ...setdata, [name]: value });
+    setdata(() => {
+      return { ...inputdata, [name]: value };
+    });
   };
+  const url = "http://localhost:3001";
 
   const handlesubmit = async (e) => {
     e.preventDefault();
+    const { name, email, phone, message } = inputdata;
 
-    console.log("contact page submit successsfully");
+    const fetchdata = await fetch(`${url}/api/contact`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        phone,
+        message,
+      }),
+    });
+    const response = await fetchdata.json();
+    console.log(response);
+    if (response) {
+      setdata({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+    } else {
+    }
   };
   return (
     <div
@@ -48,7 +74,7 @@ export default function Contact() {
                 <input
                   type="text"
                   name="name"
-                  value={data.name}
+                  value={inputdata.name}
                   onChange={handlechange}
                   placeholder="enter your name"
                   className="md:w-[500px] w-full h-12 outline-none hover:outline-none ring-1 ring-gray-400 dark:bg-white dark:text-black p-1 rounded-md bg-gray-100 text-gray-700 mt-1   "
@@ -61,7 +87,7 @@ export default function Contact() {
                 <input
                   type="email"
                   name="email"
-                  value={data.email}
+                  value={inputdata.email}
                   onChange={handlechange}
                   placeholder="enter your email"
                   className="md:w-[500px] w-full h-12 outline-none hover:outline-none ring-1 ring-gray-400 dark:bg-white dark:text-black p-1 rounded-md bg-gray-100 text-gray-700 mt-1   "
@@ -74,7 +100,7 @@ export default function Contact() {
                 <input
                   type="phone"
                   name="phone"
-                  value={data.phone}
+                  value={inputdata.phone}
                   onChange={handlechange}
                   placeholder="enter your phone number"
                   className="md:w-[500px] w-full h-12 outline-none hover:outline-none ring-1 ring-gray-400 dark:bg-white dark:text-black p-1 rounded-md bg-gray-100 text-gray-700 mt-1   "
@@ -86,14 +112,17 @@ export default function Contact() {
                 </label>
                 <textarea
                   name="message"
-                  value={data.message}
+                  value={inputdata.message}
                   onChange={handlechange}
                   placeholder="message"
                   className="md:w-[500px] w-full h-[200px] outline-none hover:outline-none ring-1 ring-gray-400 dark:bg-white dark:text-black p-1 rounded-md bg-gray-100 text-gray-700 mt-1   "
                 ></textarea>
               </div>
               <div className="mt-5 justify-center sm:justify-start flex items-center mx-auto ">
-                <button onClick={handlesubmit} className="bg-red-500 text-2xl font-bold p-2 rounded-md text-white w-[120px]">
+                <button
+                  onClick={handlesubmit}
+                  className="bg-red-500 text-2xl font-bold p-2 rounded-md text-white w-[120px]"
+                >
                   submit
                 </button>
               </div>
