@@ -19,7 +19,7 @@ export default function Navbar() {
   return (
     <div
       className="flex justify-between
-      items-center sticky top-0 z-50 dark:bg-gray-700 dark:text-white mx-auto md:px-10 px-4"
+      items-center sticky top-0 z-50 dark:bg-gray-700 dark:text-white bg-gray-200 text-black mx-auto md:px-10 px-4"
     >
       <div className="md:flex items-center pb-4">
         <figure>
@@ -59,16 +59,7 @@ export default function Navbar() {
               menu
             </li>
           </Link>
-          <Link to="/Mobileapp">
-            <li
-              onClick={() => handleselect("Mobileapp")}
-              className={`${
-                select === "Mobileapp" && "border-b border-red-500"
-              } w-full `}
-            >
-              mobile-app
-            </li>
-          </Link>
+
           <Link to="/Contact">
             <li
               onClick={() => handleselect("Contact")}
@@ -93,8 +84,7 @@ export default function Navbar() {
             type="search"
             placeholder="search"
             name="search"
-            className="p-1 text-black w-[100px] md:w-full outline-none rounded-md  "
-            onChange={(e) => dispatch(search(e.target.value))}
+            className="p-1 text-black w-[100px] md:w-full border border-gray-400 outline-none rounded-md  "
           />
         </div>
         <div className="">
@@ -162,12 +152,12 @@ export default function Navbar() {
         </div>
 
         <div>
-          <Link to="/Register">
+          <Link to="/Login">
             <button
-              className="text-md h-8 w-[80px] shadow-md font-semibold items-center border flex justify-center border-green-700
+              className="text-md h-8 w-[80px] bg-blue-500 text-white shadow-md font-semibold items-center border flex justify-center border-green-700
          rounded-full   "
             >
-              sign in
+              Log in
             </button>
           </Link>
         </div>

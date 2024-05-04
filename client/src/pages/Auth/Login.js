@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [inputdata, setinputdata] = useState({
@@ -15,7 +16,7 @@ export default function Login() {
     console.log("login successfull");
   };
   return (
-    <div className="w-full h-full dark:bg-gray-900 dark:text-white flex justify-center ">
+    <div className="w-full h-full dark:bg-gray-900 dark:text-white bg-gray-100 text-black flex justify-center ">
       <div className=" shadow md p-2 md:mt-10 mt-3 dark:bg-gray-600 mb-10 rounded-md ">
         <h1 className="text-2xl mt-2 text-center font-bold">
           Login your acccount
@@ -56,6 +57,17 @@ export default function Login() {
               Login
             </button>
           </form>
+          <div className="flex">
+            <p className="text-center mx-auto flex items-center">
+              have no account?
+              <Link
+                className="hover:underline hover:text-blue-500 "
+                to="/Register"
+              >
+                Register
+              </Link>{" "}
+            </p>
+          </div>
         </div>
       </div>
     </div>

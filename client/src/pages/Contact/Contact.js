@@ -51,7 +51,7 @@ export default function Contact() {
      dark:text-gray-100 bg-gradient-to-r from-gray-700 to-gray-600 text-white"
     >
       <div className="py-10 mx-4 ">
-        <h1 className="text-2xl font-extrabold text-center ">Contact me</h1>
+        <h1 className="text-2xl font-extrabold text-center ">Contact Us</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5  mx-auto sm:mt-20 mt-5 ">
           <div className="flex flex-col sm:mx-auto sm:justify-center justify-start ">
             <div className="text-2xl font-semibold ">
@@ -60,7 +60,7 @@ export default function Contact() {
               <Link to="mailto"> md.joshimuddin975@gmail.com </Link>
             </div>
             <div className=" text-2xl font-semibold sm:mt-10 mt-3">
-              <h3>Dhaka office</h3>
+              <h3>Uttara office</h3>
               <p>mobile:0171863690</p>
               <Link to="mailto"> md.joshimuddin975@gmail.com </Link>
             </div>

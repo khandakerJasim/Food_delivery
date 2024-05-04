@@ -23,7 +23,7 @@ export default function Footer() {
     },
   ];
   return (
-    <div className=" dark:bg-gray-800 dark:text-white bg-white text-black ">
+    <div className=" dark:bg-gray-800 dark:text-white bg-gray-200 text-black ">
       <div className="grid grid-cols-1 md:grid-cols-3 md:mx-10 mx-4 md:gap-4 gap-2 py-5 ">
         <div className=" ">
           <p className="text-blue-500 text-2xl font-bold">FOOD CORNER</p>

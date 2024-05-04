@@ -24,7 +24,7 @@ export default function Themeswitch() {
     settheme(theme === "dark" ? "light" : "dark");
   };
   return (
-    <div className="fixed left-5 right-0 top-5 md:top-5 md:right-4 z-[999]">
+    <div className="fixed left-2 right-0 top-4 md:top-5 md:right-4 z-[999]">
       <button onClick={handletheme}>
         {theme === "dark" ? (
           <FaMoon className="text-yellow-500" />

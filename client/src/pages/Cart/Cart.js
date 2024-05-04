@@ -28,16 +28,16 @@ export default function Cart() {
   return (
     <div className=" bg-white text-gray-700">
       <div className=" md:w-full h-full  flex justify-center p-4">
-        <h1 className="text-center text-2xl font-bold">shopping cart</h1>
+        <h1 className="text-center  text-2xl font-bold">shopping cart</h1>
 
         {carts.length === 0 ? (
-          <div className="mt-5">
+          <div className="mt-10">
             <h1 className="text-center text-2xl font-bold ">
               the cart is empty
             </h1>
           </div>
         ) : (
-          <div className="  mt-0 ">
+          <div className="  mt-10 py-10  ">
             <table className="  ">
               <thead>
                 <tr className=" flex items-center border-b-2 gap-[100px] justify-between ">

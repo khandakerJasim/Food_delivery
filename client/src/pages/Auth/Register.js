@@ -52,8 +52,8 @@ export default function Register() {
     }
   }, [images]);
   return (
-    <div className="w-full h-full dark:bg-gray-900 dark:text-white flex justify-center ">
-      <div className=" shadow md p-2 md:mt-10 mt-3 dark:bg-gray-600 mb-10 rounded-md ">
+    <div className="w-full h-full dark:bg-gray-900 dark:text-white bg-red-50 flex justify-center ">
+      <div className=" shadow md p-2 md:mt-10 mt-3 dark:bg-gray-600 bg-gray-200 mb-10 rounded-md ">
         <h1 className="text-2xl mt-2 text-center font-bold">
           Registration your acccount
         </h1>
