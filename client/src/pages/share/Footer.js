@@ -9,15 +9,10 @@ export default function Footer() {
     setvalue(e.target.value);
   };
   const options = [
+    { id: 1, label: "Bangla", value: "1" },
+    { id: 2, label: "English", value: "2" },
     {
-      label: "Bangla",
-      value: "1",
-    },
-    {
-      label: "English",
-      value: "2",
-    },
-    {
+      id: 3,
       label: "Hindi",
       value: "3",
     },
@@ -90,7 +85,9 @@ export default function Footer() {
               className="w-[120px] h-10 mt-2 border border-gray-400 dark:bg-gray-700 dark:text-white  p-2 "
             >
               {options.map((option) => (
-                <option value={option.value}>{option.label}</option>
+                <option key={option.id} value={option.value}>
+                  {option.label}
+                </option>
               ))}
             </select>
           </div>
