@@ -1,6 +1,7 @@
 const Users = require("./../model/Usermodel");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
+const Blacklist = require("./../model/Blacklistmodel");
 
 const bcrypt = require("bcrypt");
 
@@ -95,6 +96,50 @@ exports.Login = async (req, res) => {
     res.status(400).json({
       success: true,
       message: "error",
+      error: err,
+    });
+  }
+};
+
+exports.getprofile = async (req, res) => {
+  try {
+    const user_id = req.user._id;
+    const getuser = await Users.findOne({ _id: user_id });
+    res.status(200).json({
+      success: true,
+      message: "user get successfully",
+      data: getuser,
+    });
+  } catch (err) {
+    res.status(400).json({
+      success: true,
+      message: "error",
+      error: err,
+    });
+  }
+};
+
+exports.Logout = async (req, res) => {
+  try {
+    const token =
+      req.body.token || req.body.query || req.headers["authorization"];
+    const bearer = token.split(" ");
+    const bearertoken = bearer[1];
+
+    const newblacklist = new Blacklist({
+      token: bearertoken,
+    });
+    const savetoken = await newblacklist.save();
+    res.status(200).json({
+      success: true,
+      message: "you are logged out",
+      data: savetoken,
+    });
+    //res.setHeader("clear-header-data", "'cookie','storage'");
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: "logout not found",
       error: err,
     });
   }

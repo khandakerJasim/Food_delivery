@@ -5,6 +5,7 @@ const {
   Loginvalidator,
 } = require("./../helpers/Validator");
 const upload = require("./../multerconfig/Storage");
+const Verifytoken = require("./../middleware/Authmiddleware");
 
 const router = express.Router();
 
@@ -16,5 +17,8 @@ router.post(
 );
 
 router.post("/api/login", Loginvalidator, Ucontroler.Login);
+
+router.get("/api/profile", Verifytoken, Ucontroler.getprofile);
+router.get("/api/logout", Verifytoken, Ucontroler.Logout);
 
 module.exports = router;
