@@ -55,7 +55,7 @@ export default function Hero() {
             <SwiperSlide key={img.id}>
               <div className="relative">
                 <img
-                  className="h-[300px] md:h-[600px] w-full object-cover  "
+                  className="h-[300px] md:h-[700px] w-full  object-cover  "
                   src={img.image}
                   alt=""
                 />
